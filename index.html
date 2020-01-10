@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Sample app </title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 2px;
+  text-align: center;
+  font-size: 15px;
+  color: white;
+}
+nav {
+  float: left;
+  width: 30%;
+  height: 300px; /* only for demonstration, should be removed */
+  padding: 20px;
+}
+
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnav .search-container {
+  float: right;
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+</style>
+	</head>
+	<body onload=userAction()>
+	
+	
+	<div class="topnav">
+  <a class="active" href="">Home</a>
+  <a href="">About</a>
+  <a href="">Contact</a>
+  <div class="search-container">
+      <input id="mysearch" type="text" placeholder="Search.." name="search">
+      <button type="submit" ><i class="fa fa-search"></i></button>
+  </div>
+</div>
+<header>
+  <h2>Welcome to Learning Portal</h2>
+</header>
+
+<section>
+  <nav>
+    <div class="topnav">
+<a href="" id ="1"> </a> </nav>
+</div>
+<nav>
+    <div class="topnav">
+<a href="" id ="2"> </a> </nav>
+<nav>
+   <div class="topnav">
+<a href="" id ="3"> </a> </nav>
+<nav>
+   <div class="topnav">
+<a href="" id ="4"> </a> </nav>
+<nav>
+    <div class="topnav">
+<a href="" id ="5"> </a> </nav>
+<nav>
+   <div class="topnav">
+<a href="" id ="6"> </a>  </nav>
+</section>
+
+		<script>
+			const userAction = async () => {
+				const response = await fetch('http://localhost:3000/courselist');
+				const myjson = await response.json();
+				var out1 = "";
+				var out2 = "";
+				var i;
+				var k = 1;
+				for(i = 0; i < myjson.length; i++) {
+					out1 = myjson[i].name
+					out2 = myjson[i].description
+					var newLine = ' : '
+					var lk = out1  +newLine +out2
+					document.getElementById(k).innerHTML = lk;
+					k=k+1
+				}
+				
+			}
+			const searchFunction = async () => {
+				var name = document.getElementById(mysearch)
+				console.log(name)
+				const response = await fetch('http://localhost:3000/courselist/');
+				const myjson = await response.json();
+				var out1 = "";
+				var out2 = "";
+				var i;
+				var k = 1;
+				for(i = 0; i < myjson.length; i++) {
+					out1 = myjson[i].name
+					out2 = myjson[i].description
+					var newLine = ' : '
+					var lk = out1  +newLine +out2
+					document.getElementById(k).innerHTML = lk;
+					k=k+1
+				}
+				
+			}
+		</script>
+	</body>
+</html>
